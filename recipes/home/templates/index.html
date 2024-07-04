@@ -1,0 +1,30 @@
+{% extends "base.html" %} {% block start %}
+
+<div class="container p-5">
+  <table class="table container table-striped">
+    <h1>This is a index page</h1>
+    <thead>
+      <tr>
+        <th scope="col">S. No</th>
+        <th scope="col">Name</th>
+        <th scope="col">Age</th>
+        <th scope="col">Can Vote</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for people in peoples %}
+      <tr>
+        <td>{{forloop.counter}}</td>
+        <td>{{people.name}}</td>
+        <td>{{people.age}}</td>
+        <td {%if people.age <= 18%} style="background-color: red" {%endif%}>
+          {%if people.age >= 18%} 👍 {%else%} 🤷‍♂️ {% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <p>{{text|truncatechars:100}}</p>
+</div>
+
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends "base.html" %} {% block start %}
+
+<div class="container p-5">
+    <form class='col-6 mx-auto card p-3 shadow my-4' method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <h2>Add Receipes</h2>
+        <hr>
+        <div class="mb-3">
+            <label class="form-label">Receipes Name</label>
+            <input type="text" name="receipe_name" class="form-control" placeholder="Receipes Title">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Receipes Description</label>
+            <textarea class="form-control" placeholder="Receipes Description" name="receipe_description" rows="3"></textarea>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Receipes Image</label>
+            <input type="file" accept=".jpg, .png, .jpeg, .svg"  class='form-control' name='receipe_image'>
+        </div>
+        <button type="submit" class="btn btn-primary ">Add Receipes</button>
+    </form>
+    <table class="table container table-striped my-5">
+        <h1>Receipes</h1>
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Receipe Name</th>
+            <th scope="col">Receipe Description</th>
+            <th scope="col">Receips Image</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for receipe in receipes %}
+          <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{receipe.receipe_name}}</td>
+            <td>{{receipe.receipe_description}}</td>
+            <td>
+              <a href="/media/{{receipe.receipe_image}}"><img src="/media/{{receipe.receipe_image}}" style='height:100px; width:100px;'></a>
+            </td>
+            <td>
+              <a href="/delete-receipe/{{receipe.id}}" class="btn btn-danger my-2">Delete</a>
+              <a href="/update-receipe/{{receipe.id}}" class="btn btn-success">Update</a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+</div>
+
+{% endblock %}
